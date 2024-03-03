@@ -1,4 +1,4 @@
-from json import JSONDecodeError
+from json import JSONDecodeError, JSONEncoder
 from django.core.exceptions import ValidationError
 
 from django import forms
@@ -23,15 +23,3 @@ class PydanticJSONFormField(forms.JSONField):
         self.pydantic_model = pydantic_model
         kwargs.setdefault('widget', PrettyJSONWidget)
         super().__init__(*args, **kwargs)
-
-    def prepare_value(self, value):
-        if isinstance(value, BaseModel):
-            return value.model_dump_json()
-        return value
-
-    def to_python(self, value):
-        try:
-            return self.pydantic_model(**json.loads(value)).dict()
-        except (PydanticValidationError, JSONDecodeError) as e:
-            raise ValidationError(e.errors() if hasattr(e, 'errors') else str(e))
-
