@@ -9,15 +9,19 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('product_id', models.AutoField(primary_key=True, serialize=False)),
-                ('details', example_app.fields.PydanticJSONField(pydantic_model=example_app.pd_models.SampleProduct)),
+                ("product_id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "details",
+                    example_app.fields.PydanticJSONField(
+                        pydantic_model=example_app.pd_models.SampleProduct
+                    ),
+                ),
             ],
         ),
     ]

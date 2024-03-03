@@ -18,8 +18,9 @@ class PrettyJSONWidget(forms.widgets.Textarea):
         except (TypeError, ValueError):
             return super(PrettyJSONWidget, self).format_value(value)
 
+
 class PydanticJSONFormField(forms.JSONField):
     def __init__(self, *args, pydantic_model: type[BaseModel], **kwargs) -> None:
         self.pydantic_model = pydantic_model
-        kwargs.setdefault('widget', PrettyJSONWidget)
+        kwargs.setdefault("widget", PrettyJSONWidget)
         super().__init__(*args, **kwargs)
