@@ -1,13 +1,10 @@
 from datetime import datetime
 
-from django.test import TestCase
-
-# Create your tests here.
-from django.test import TestCase
-from .models import Product
 from django.core.exceptions import ValidationError
+from django.test import TestCase
 
-from .pd_models import SampleProduct
+from .models import Product
+from .pd_models import ProductDefinition
 
 
 class ProductModelTest(TestCase):
@@ -27,7 +24,7 @@ class ProductModelTest(TestCase):
 
         # Reload from the database
         saved_product = Product.objects.get(pk=product.pk)
-        details: SampleProduct = saved_product.details
+        details: ProductDefinition = saved_product.details
 
         # Check if the saved data matches the input data
         self.assertEqual(details.name, self.valid_product_details["name"])
